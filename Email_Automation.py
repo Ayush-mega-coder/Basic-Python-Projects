@@ -14,8 +14,8 @@ body='hello world'
 
 msg.attach(MIMEText(body,'plain'))
 
-email='aayupurohit151@gmail.com'
-password='9761979121'
+email=''
+password=''
 
 mail=smtplib.SMTP('smtp.gmail.com',587)
 mail.ehlo()
