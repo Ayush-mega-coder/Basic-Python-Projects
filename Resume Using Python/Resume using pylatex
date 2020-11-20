@@ -1,0 +1,133 @@
+from pylatex import Document, PageStyle, Head, MiniPage, Foot, LargeText, \
+    MediumText, LineBreak, simple_page_number,Section, Itemize, Enumerate, Description, \
+    Command, NoEscape,MiniPage, LineBreak, VerticalSpace
+
+from pylatex.utils import bold
+
+if __name__ == '__main__':
+    doc = Document()
+
+def generate_header():
+    geometry_options = {"margin": "0.7in"}
+    doc = Document(geometry_options=geometry_options)
+    # Add document header
+    header = PageStyle("header")
+    # Create left header
+    with header.create(Head("L")):
+        header.append("Page date: ")
+        header.append(LineBreak())
+        header.append(input("Enter date: "))
+    # Create center header
+    with header.create(Head("C")):
+        header.append(LargeText(bold("Resume")))
+    # Create right header
+    with header.create(Head("R")):
+        header.append(simple_page_number())
+    # Create left footer
+    with header.create(Foot("L")):
+        header.append("Thank You")
+   
+
+    # Create right footer
+    with header.create(Foot("R")):
+        header.append("Created by Virtual Office")
+
+    doc.preamble.append(header)
+    doc.change_document_style("header")
+
+    with doc.create(MiniPage(align='c')):
+        doc.append(LargeText(bold(" ")))
+
+
+
+    with doc.create(Section('Introduction')):
+        with doc.create(Itemize()) as itemize:
+            a=input("Enter Name: ")
+            b = "Name:     "
+            itemize.add_item(b+a)
+            c = "Age:      "
+            d = input("Enter age: ")
+            
+            itemize.add_item(c+d)
+            e = "City:     "
+            f = input("City: ")
+            
+            itemize.add_item(e+f)
+            g = "State:    "
+            h = input("State: ")
+            itemize.add_item(g+h)
+            
+            i = "Email:    "
+            j = input("Email: ")
+            itemize.add_item(i+j)
+            k = "Contact:  "
+            l = input("Contact: ")
+            itemize.add_item(k+l)
+
+    with doc.create(Section('Education')):
+        with doc.create(Itemize()) as itemize: 
+            itemize.add_item(" ")  
+            with doc.create(MiniPage(width=r"0.5\textwidth")):
+                doc.append(MediumText(input("Enter Univesity Name: ")))
+                doc.append("\n")
+
+                doc.append(input("Enter Course Name: "))
+                doc.append("\n")
+
+                doc.append(input("From year-to Year: "))
+                doc.append("\n")
+                doc.append(input("Enter Address: "))
+                doc.append("\n")
+            
+            itemize.add_item(" ") 
+            with doc.create(MiniPage(width=r"0.5\textwidth")):
+                doc.append(MediumText(input("Enter School Name: ")))
+                doc.append("\n")
+
+                doc.append(input("Enter Course Name: "))
+                doc.append("\n")
+
+                doc.append(input("From year-to Year: "))
+                doc.append("\n")
+                doc.append(input("Enter Address: "))
+
+                
+
+
+    with doc.create(Section('Skills')):
+        with doc.create(Itemize()) as itemize:
+            n = int(input("Enter Number of Skills: "))
+            for i in range(n):
+                a = input("Enter skill: ")
+                itemize.add_item(a)
+
+
+    with doc.create(Section('Interest')):
+        with doc.create(Itemize()) as itemize:
+            n = int(input("Enter Number of Interest: "))
+            for i in range(n):
+                a = input("Enter Interest: ")
+                itemize.add_item(a)
+            
+    with doc.create(Section('Languages')):
+        with doc.create(Itemize()) as itemize:
+            n = int(input("Enter Number of Languages: "))
+            for i in range(n):
+                a = input("Enter Language: ")
+                itemize.add_item(a)
+    with doc.create(Section('Projects')):
+        with doc.create(Itemize()) as itemize:
+            n = int(input("Enter Number of Projects: "))
+            for i in range(n):
+                a = input("Enter Project: ")
+                itemize.add_item(a)
+    with doc.create(Section('Cerificates')):
+        with doc.create(Itemize()) as itemize:
+            n = int(input("Enter Number of Cerificates: "))
+            for i in range(n):
+                a = input("Enter Certificate: ")
+                itemize.add_item(a)
+
+
+    doc.generate_pdf("Resume", clean_tex=False)
+generate_header()
